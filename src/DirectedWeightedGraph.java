@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 
 public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
@@ -9,18 +10,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		vertices = new ArrayList<Vertex>();
 		edges = new ArrayList<Edge>();
 	}
-
-	public static void main(String[] args) {
-		DirectedWeightedGraph g = new DirectedWeightedGraph();
-		g.addAllVerticesAndEdges();
-		
-		g.dijkstra( g.getVertex("y") );
-		
-		System.out.println( g.getWeight( g.getVertex("t")));
-
-	}
-
-
 
 	@Override
 	public void addAllVerticesAndEdges() {
@@ -87,6 +76,7 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		return result;
 	}
 
+	//TODO dies kommt in die Main
 	@Override
 	public void dijkstra(Vertex start) {
 		
