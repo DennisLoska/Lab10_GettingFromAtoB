@@ -93,6 +93,16 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		
 		//now everything form the starting point is set & calculated, now we can calculate our fastest ways
 		System.out.println(v2.getDistance());
+		
+		//find the shortestPath
+		finished = false;
+		Vertex current = v1;
+		int distance;
+		while(!finished){
+			for(Vertex v:getNeighbors(current)){
+				v
+			}
+		}
 	}
 	
 
