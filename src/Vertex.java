@@ -6,6 +6,7 @@ public class Vertex {
 	private int distance;	 // for dijkstra
 	private Vertex pi;
 	private String name;
+	boolean visited = false;  // for djkstra
 
 	public Vertex(String name) {
 		this.name = name;
@@ -36,6 +37,14 @@ public class Vertex {
 
 	public void setPi(Vertex pi) {
 		this.pi = pi;
+	}
+	
+	public void setVisited(){
+		visited = true;
+	}
+	
+	public void setUnVisited(){
+		visited = false;
 	}
 
 }

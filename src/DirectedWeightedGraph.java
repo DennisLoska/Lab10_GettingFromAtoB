@@ -46,65 +46,54 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 			edges.add(new Edge(getVertex(src),getVertex(sink),weight));
 		}
 	}
-	/* die obere methode macht das gleiche, nur eingelesen aus einer textfile
-	@Override
-	public void addAllVerticesAndEdges() {
-		// Vertices
-		Vertex a = new Vertex("a");
-		Vertex b = new Vertex("b");
-		Vertex c = new Vertex("c");
-		Vertex d = new Vertex("d");
-		Vertex e = new Vertex("e");
-		Vertex f = new Vertex("f");
-		Vertex g = new Vertex("g");
-		Vertex h = new Vertex("h");
-		vertices.add(a);
-		vertices.add(b);
-		vertices.add(c);
-		vertices.add(d);
-		vertices.add(e);
-		vertices.add(f);
-		vertices.add(g);
-		vertices.add(h);
+	
+	/*
+	 * Exercise 3
+	 */
+	public void djkstra(String start, String end){
+		Vertex v1 = getVertex(start);
+		Vertex v2 = getVertex(end);
+		Vertex currentNode;
+		ArrayList<Vertex> unvisitedNodes = new ArrayList<Vertex>();
 		
-		Edge e1 = new Edge(a,b,1);
-		Edge e2 = new Edge(a,h,2);
-		Edge e3 = new Edge(b,a,1);
-		Edge e4 = new Edge(b,c,1);
-		Edge e5 = new Edge(c,b,1);		
-		Edge e6 = new Edge(c,d,1);
-		Edge e7 = new Edge(d,c,1);
-		Edge e8 = new Edge(d,e,1);		
-		Edge e9 = new Edge(e,d,1);
-		Edge e10 = new Edge(e,f,1);
-		Edge e11 = new Edge(f,e,1);
-		Edge e12 = new Edge(f,g,1);
-		Edge e13 = new Edge(g,f,1);
-		Edge e14 = new Edge(g,h,1);
-		Edge e15 = new Edge(h,g,1);
-		Edge e16 = new Edge(h,a,2);
-		edges.add(e1);
-		edges.add(e2);
-		edges.add(e3);
-		edges.add(e4);
-		edges.add(e5);
-		edges.add(e6);
-		edges.add(e7);
-		edges.add(e8);
-		edges.add(e9);
-		edges.add(e10);
-		edges.add(e11);
-		edges.add(e12);
-		edges.add(e13);
-		edges.add(e14);
-		edges.add(e15);
-		edges.add(e16);
+		//1. assign to every node except the starting node the distance value of infinity
+		for(Vertex v: vertices){
+			if(v!=v1)v.setDistance(Integer.MAX_VALUE);
+		}
+		//2. set initial Node as current, mark all others as unvisited, create a set of all unvisited Nodes
+		//?really necessary?
 		
+		for(Vertex v: vertices){
+			unvisitedNodes.add(v);
+		}
 		
-		System.out.println(vertices);
-		System.out.println(edges);
+		//3. calculate Distance to the first neghbours of the startingNode
+		currentNode = v1; 
+		while (!unvisitedNodes.isEmpty()){
+		//System.out.println("currentNode: "+currentNode.toString());
+		//System.out.println("unvisitedNodes: "+unvisitedNodes.toString());
+		unvisitedNodes.remove(currentNode);
+		for(Vertex v: getNeighbors(currentNode)){
+			int currentWeight = getEdge(currentNode,v).getWeight();
+			if(currentWeight+currentNode.getDistance()<v.getDistance()) v.setDistance(currentWeight+currentNode.getDistance());
+		}
+		
+		//now we take the next node with the lowest calculated distance(from all or just from neighbours?
+		int smallestDistance = Integer.MAX_VALUE;
+		Vertex smallestDisVertex = currentNode;
+		for(Vertex v: vertices){
+			if(unvisitedNodes.contains(v)&&v.getDistance()<smallestDistance){
+				smallestDisVertex=v;
+				smallestDistance = v.getDistance();
+			}
+		}
+		
+		currentNode = smallestDisVertex;
+		}
+		
+		//now everything form the starting point is set & calculated, now we can calculate our fastest ways
+		System.out.println(v2.getDistance());
 	}
-	*/
 	
 
 	@Override
