@@ -18,31 +18,14 @@ public class GraphFileReader {
 	 * SourceVertexName SinkVertex1,1Weight SinkVertex2,2Weight...SinkVertexN,NWeight
 	 */
 	
-	public DirectedWeightedGraph readFileOld(File file){
-		String result="";
-		try {
-			Scanner sc = new Scanner(file);
-			while(sc.hasNext()){
-				result+=sc.next();
-			}
-			sc.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("file not found");
-		}
-		
-		System.out.println(result);//Stattdessen eine Methode die die String in einen Graphen converted
-		return null;
-	}
-	
-	public DirectedWeightedGraph readFile(String filename){
+	public String readFile(String filename){
 		String result="";
 		String currentLine="";
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			while((currentLine=br.readLine())!=null){
-				result+=currentLine;
+				result+=currentLine + "\n";
 			}
 			br.close();
 		} catch (Exception e) {
@@ -50,8 +33,7 @@ public class GraphFileReader {
 			System.out.println("smth went wrong");
 		}
 		
-		System.out.println(result);//Stattdessen eine Methode die die String in einen Graphen converted
-		return null;
+		return result;
 		
 }
 }
