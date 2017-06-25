@@ -6,13 +6,7 @@ public class Main {
 		GraphFileReader r = new GraphFileReader();
 		DirectedWeightedGraph g = new DirectedWeightedGraph(r.readFile("file.txt"));
 		
-		//g.dijkstra( g.getVertex("y") );
-		
-		//System.out.println( g.getWeight( g.getVertex("t")));
 		System.out.println(g.toString());
-		
-		
-		//r.readFile("file.txt");
 	}
 
 }

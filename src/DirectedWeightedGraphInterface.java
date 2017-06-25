@@ -8,6 +8,5 @@ public interface DirectedWeightedGraphInterface {
 	public Vertex getVertex(String name);
 	public ArrayList<Vertex> getNeighbors(Vertex aVertex);
 	
-	//public void dijkstra(Vertex start);
-	//public int getWeight(Vertex sink); eher get Distance - falscher Name
+	
 }

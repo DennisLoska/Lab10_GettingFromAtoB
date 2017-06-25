@@ -1,4 +1,4 @@
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -29,13 +29,11 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 			
 			StringTokenizer st2 = new StringTokenizer(currentLine);
 			//src
-			//System.out.println(st2.nextToken(" "));
 			String src = st2.nextToken(" ");
 			vertices.add(new Vertex(src));
 			//other points - here a loop is needed
 			while(st2.hasMoreTokens()){
 				String currentSink = st2.nextToken();
-				//System.out.println(currentSink);
 				edgesToCreate.add(currentSink + "," + src);
 			}
 		}
@@ -45,7 +43,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 			String sink = sts.nextToken();
 			int weight = Integer.parseInt(sts.nextToken());
 			String src = sts.nextToken();
-			//System.out.println("src " + src+", sink "+sink+", weight "+weight);
 			edges.add(new Edge(getVertex(src),getVertex(sink),weight));
 		}
 	}
@@ -135,51 +132,14 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		return result;
 	}
 
-	//TODO dies kommt in die Main
-	/*@Override
-	public void dijkstra(Vertex start) {
-		
-		for(Vertex v : vertices) {
-			v.setDistance(Integer.MAX_VALUE);
-		}		
-		start.setDistance(0);
-		
-		ArrayList<Vertex> S = new ArrayList<Vertex>(); //list of vertices processed so far
-		ArrayList<Vertex> Q = new ArrayList<Vertex>(vertices); //list of vertices processed so far
-		
-		while(Q.size() != 0){
-			
-			for(Vertex  v : vertices){
-				S.add(v);
-				Q.remove(v);
-				ArrayList<Vertex> neighbors = getNeighbors(v);
-				for(Vertex n : neighbors){
-					if(n.getDistance() > v.getDistance() + getEdge(v, n).getWeight()){
-						n.setDistance( v.getDistance() + getEdge(v, n).getWeight() );
-						n.setPi(v);
-					}
-				}
-			}
-		}	
-	}
-	*/
-
-	/*@Override
-	public int getWeight(Vertex sink) {
-		
-		return sink.getDistance();
-	}*/
-	
-	
-	public Vertex getPi(Vertex sink) {
-		
-		return sink.getPi();
-	}
-	
 	/*
 	 * convertiert den Graphen zurück in die textversion
 	 */
 	public String toString(){
+		return fileGraph;
+	}
+	
+	public String toStringOld(){
 		String result="";
 		for(Vertex v1:vertices){
 			result += v1.toString() + " ";
