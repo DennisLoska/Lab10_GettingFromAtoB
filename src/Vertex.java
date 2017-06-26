@@ -4,9 +4,9 @@ public class Vertex {
 	
 	
 	private int distance;	 // for dijkstra
-	private Vertex pi;
+	private Vertex pi;       //for djkstra
 	private String name;
-	boolean visited = false;  // for djkstra
+	//boolean visited = false;  // for djkstra
 
 	public Vertex(String name) {
 		this.name = name;
@@ -42,12 +42,12 @@ public class Vertex {
 		this.pi = pi;
 	}
 	
-	public void setVisited(){
+	/*public void setVisited(){
 		visited = true;
 	}
 	
 	public void setUnVisited(){
 		visited = false;
-	}
+	}*/
 
 }
