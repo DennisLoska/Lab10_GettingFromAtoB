@@ -17,7 +17,9 @@ Der Djkstra alghorythmus ist bei uns eine Methode in der graphenklasse. Dieser b
 
 Der zweite Teil ist es den ganzen graphen zu durchgehen und die Distance-Values verkleinern, falls dies möglich ist. Nach diesem Schritt kann man sich ein ZeilVertex aussuchen und der Distance-Wert, den dieser hat ist die kleinste Entfernung zwischen dem start zu diesem vertex.
 
-Um den kürzesten Weg genau rauszufinden, haben wir den Alghorythmus leider noch nicht so weit. 
+Deas ergebnis der ersten Programmierung war es den kürzesten Weg als eine Summe der weights darzustellen, nun fehlte uns nur noch eine Angabe - durch welche Vertices man gehen muss um diesen kurzen Weg zu beschreiten. Dies setzten wir um, indem jeder Vertex ein zusätzliches Vertex-Feld "Pi" besitzt, welches bei der Änderung des Distance Werdes auf den Vorgängervertex gesetzt wird. Dies führt dazu, dass wir am Ende nur noch mit einer Schleife alle Vertices vom Endpunkt mit getPi() zu dem Anfagspunkt durchgehen und uns diese in einen String speichern.
+
+![Unbenannt](C:\Users\Windows 10\Documents\Code\Java\eclipse workspace\Lab10\Lab10_Getting_from_A_to_B\Unbenannt.PNG)
 
 ## 4. Meanwhile, your partner writes a method that takes a graph, picks two vertices at random, and finds the cheapest path between the two.
 

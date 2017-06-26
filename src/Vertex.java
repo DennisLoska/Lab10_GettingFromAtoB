@@ -32,7 +32,10 @@ public class Vertex {
 	}
 
 	public Vertex getPi() {
+		if(pi!=null){
 		return pi;
+		}
+		return new Vertex("kein");
 	}
 
 	public void setPi(Vertex pi) {

@@ -6,7 +6,7 @@ public class Main {
 		GraphFileReader r = new GraphFileReader();
 		DirectedWeightedGraph g = new DirectedWeightedGraph(r.readFile("file.txt"));
 		//System.out.println(g.toString());
-		g.djkstra("1","7");
+		g.djkstra("1","5");
 	}
 
 	

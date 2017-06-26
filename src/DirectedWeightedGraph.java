@@ -75,7 +75,10 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		unvisitedNodes.remove(currentNode);
 		for(Vertex v: getNeighbors(currentNode)){
 			int currentWeight = getEdge(currentNode,v).getWeight();
-			if(currentWeight+currentNode.getDistance()<v.getDistance()) v.setDistance(currentWeight+currentNode.getDistance());
+			if(currentWeight+currentNode.getDistance()<v.getDistance()){
+				v.setDistance(currentWeight+currentNode.getDistance());
+				v.setPi(currentNode);
+			}
 		}
 		
 		//now we take the next node with the lowest calculated distance(from all or just from neighbours?
@@ -92,16 +95,26 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface{
 		}
 		
 		//now everything form the starting point is set & calculated, now we can calculate our fastest ways
-		System.out.println(v2.getDistance());
+		System.out.println("length: " +v2.getDistance());
 		
-		//find the shortestPath
-		finished = false;
-		Vertex current = v1;
-		int distance;
-		while(!finished){
-			for(Vertex v:getNeighbors(current)){
-				v
-			}
+		//find the path throug going through the Pi´s - the predecessors
+		String path="the following Path: \n";
+		Vertex currentV=v2;
+		while(currentV!=v1){
+			path+= currentV.toString() + "\n";
+			currentV=currentV.getPi();
+		}
+		path+= currentV.toString() + "\n";
+		System.out.println(path);
+	}
+	
+	public void depthSearch(){
+		
+	}
+	
+	public void printPis(){
+		for(Vertex v: vertices){
+			System.out.println(v.toString() + " " +v.getPi().toString());
 		}
 	}
 	
