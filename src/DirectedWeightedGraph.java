@@ -95,7 +95,7 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         }
 
         //now everything form the starting point is set & calculated, now we can calculate our fastest ways
-        System.out.println("length: " + v2.getDistance());
+        System.out.println("Time in sec: " + v2.getDistance() + " | " + (double)(v2.getDistance()/60) + " min (nur Fahrzeit)");
 
         //find the path by going through the Pi�s - the predecessors
         String path = "the following Path: \n";

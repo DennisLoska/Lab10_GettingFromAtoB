@@ -23,13 +23,16 @@ public class Vertex {
         return name;
     }
 
+    /*
+        Exercise 5
+     */
     String getFullName(){
         String currentLine;
         try {
             BufferedReader br = new BufferedReader(new FileReader("stationNames.txt"));
             while((currentLine=br.readLine())!=null){
                 if (currentLine.contains(this.name))
-                    letterName=currentLine + "\n";
+                    letterName=currentLine;
             }
             br.close();
         } catch (Exception e) {
