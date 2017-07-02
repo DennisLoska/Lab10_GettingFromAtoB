@@ -60,7 +60,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         visitedNodes.add(node);
         node.setVisited(true);
         String path = "The shortest Path: \n";
-        //3. discover first neighbours of the startingNode
         while (!visitedNodes.isEmpty()) {
             Vertex currentNode = visitedNodes.pop();
             //creates the path by appending a visited nodes name with stupid if-case
@@ -68,6 +67,7 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
             if (start.equals("1"))
                 path += currentNode.getName() + " \n";
             else path += currentNode.getFullName() + " \n";
+            //discover neighbours of the currentNodeode
             for (Vertex neighbour : getNeighbors(currentNode)) {
                 if (neighbour != null && !neighbour.getVisited()) {
                     //marks all neighbour-nodes as visited

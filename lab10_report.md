@@ -5,17 +5,58 @@ _Authors: Dennis Loska, Bernhard Zaborniak, Tony Dorfmeister, 20.06.2017_
 
 ## 1. Design and implement a data type WeightedGraph that uses either an adjacency list or an adjacency matrix. How are you going to store the weights?
 
-Wir sind dem Beispiel von Alexander gefolgt, die Weights haben wir als Parameter der Edges-klasse gespiechert.
+Wir sind dem Beispiel von Alexander gefolgt, die Weights haben wir als Parameter der Edges-klasse gespiechert. Unser Interface sieht so aus:
+
+```Java
+public interface DirectedWeightedGraphInterface {
+	public void generateWeightedGraph();
+	public Edge getEdge(Vertex src, Vertex sink);
+	public Vertex getVertex(String name);
+	public ArrayList<Vertex> getNeighbors(Vertex aVertex);
+}
+
+```
 
 ## 2. While one partner is doing this, the other one should write a class that reads a graph from a file. See notes on the file format and the example file below!
 
 Die Syntax  source firstDesinationNode,weightTithis secondDestination,weight  ...und so weiter lasen wir in unserem Programm mit dem String Tokenizer in der Mainmethode ein. Um das einlesen hat sich eine seperate Klasse gekümmert- der eingelesene String wird dann dem Graphen-Konstruktor als Parameter übergeben. Beim Erstellen des Graphen wird er basierend auf der Textdatei erstellt. Mit der richtigen Syntax funktionierte dies gut beim Testen.
 
+```Java
+DirectedWeightedGraph g2 = new DirectedWeightedGraph(r.readFile("file.txt"));
+  //...
+public DirectedWeightedGraph(String fileGraph) {
+    this.fileGraph = fileGraph;
+    vertices = new ArrayList<Vertex>();
+    edges = new ArrayList<Edge>();
+    generateWeightedGraph();
+}
+
+```
+```Java
+
+public String readFile(String filename) {
+    String result = "";
+    String currentLine;
+    try {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        while ((currentLine = br.readLine()) != null) {
+            result += currentLine + "\n";
+        }
+        br.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("sth went wrong");
+    }
+    return result;
+}
+
+```
+
 ## 3. Now write a method that will take a graph and two vertices and find the shortest path between the vertices. Make a method to print out the path in a readable format. What class will these methods belong to?
 
 ### Depth First Search-Algorithmus
 
-Da wir zuerst den Dijkstra-Algorithmus implementiert haben, haben wir uns an diesem orientiert und auf Basis dessen den Depth First Search-Algorithmus in der depthFirstSearch()-Methode erstellt.
+Da wir zuerst den Dijkstra-Algorithmus implementiert haben, haben wir uns an diesem orientiert und auf Basis dessen den Depth First Search-Algorithmus in der depthFirstSearch()-Methode erstellt. Es wurde ein Stack verwendet, um die besuchten Nodes darin zu speichern. Jede aktuelle Node sucht sich den ersten beliebigen Nachbarn und so weiter. Wenn keine Nachbarn vorhanden sind bzw. es keinen weiteren Weg gibt, geht der Algorithmus wieder zu der Node zurück, die noch nicht alle Nachbarn besucht hatte. Dies geht solange, bis das gesuchte Node gefunden wurde.
 
 
 ## 4. Meanwhile, your partner writes a method that takes a graph, picks two vertices at random, and finds the cheapest path between the two.
@@ -51,3 +92,5 @@ Hierfür wurde in der Vertex-Klasse eine Methode erstellt, um die Namen aus der 
         return letterName;
     }
 ```
+
+![path](05.png)
