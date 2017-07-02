@@ -2,12 +2,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Vertex {
-
-    private int distance;     // for dijkstra
+    // for dijkstra
+    private int distance;
     private Vertex pi;
     private String name;
     private String letterName;
-    //boolean visited = false;
+    private boolean visited = false;
     Vertex(String name) {
         this.name = name;
         distance = 0;
@@ -61,12 +61,12 @@ public class Vertex {
         this.pi = pi;
     }
 
-	/*public void setVisited(){
-		visited = true;
+	public void setVisited(boolean visited){
+        this.visited=visited;
 	}
 
-	public void setUnVisited(){
-		visited = false;
-	}*/
+	public boolean getVisited(){
+		return this.visited;
+	}
 
 }

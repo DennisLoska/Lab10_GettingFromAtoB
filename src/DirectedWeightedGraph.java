@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
@@ -48,22 +50,55 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
     }
 
     /*
-     * Exercise 3 cheapest path
+     * Exercise 3 shortest path
+     * TODO: fix bug so its actually the shortest path and not the first path ever found to destination node
      */
-    public void djkstra(String start, String end) {
+    public void depthSearch(String start, String end) {
+        Vertex node = getVertex(start);
+        Vertex endNode = getVertex(end);
+        Stack<Vertex> visitedNodes = new Stack<Vertex>();
+        visitedNodes.add(node);
+        node.setVisited(true);
+        String path = "The shortest Path: \n";
+        //3. discover first neighbours of the startingNode
+        while (!visitedNodes.isEmpty()) {
+            Vertex currentNode = visitedNodes.pop();
+            //creates the path by appending a visited nodes name with stupid if-case
+            //because of stupid name-method-implementation in Vertex class
+            if (start.equals("1"))
+                path += currentNode.getName() + " \n";
+            else path += currentNode.getFullName() + " \n";
+            for (Vertex neighbour : getNeighbors(currentNode)) {
+                if (neighbour != null && !neighbour.getVisited()) {
+                    //marks all neighbour-nodes as visited
+                    visitedNodes.add(neighbour);
+                    neighbour.setVisited(true);
+                    //print out path if end-node is found
+                    if (neighbour == endNode) {
+                        //again stupid if-case
+                        if (start.equals("1"))
+                            System.out.println(path + neighbour.getName() + "\n");
+                        else System.out.println(path + neighbour.getFullName() + "\n");
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+     * Exercise 4 cheapest path
+     */
+    public void dijkstra(String start, String end) {
         Vertex v1 = getVertex(start);
         Vertex v2 = getVertex(end);
         Vertex currentNode;
         ArrayList<Vertex> unvisitedNodes = new ArrayList<Vertex>();
 
-        //1. assign to every node except the starting node the distance value of infinity
+       /* 1. assign to every node except the starting node the distance value of infinity
+        2. set initial Node as current, mark all others as unvisited, create a set of all unvisited Nodes
+        ?really necessary?*/
         for (Vertex v : vertices) {
             if (v != v1) v.setDistance(Integer.MAX_VALUE);
-        }
-        //2. set initial Node as current, mark all others as unvisited, create a set of all unvisited Nodes
-        //?really necessary?
-
-        for (Vertex v : vertices) {
             unvisitedNodes.add(v);
         }
 
@@ -95,24 +130,17 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         }
 
         //now everything form the starting point is set & calculated, now we can calculate our fastest ways
-        System.out.println("Time in sec: " + v2.getDistance() + " | " + (double)(v2.getDistance()/60) + " min (nur Fahrzeit)");
+        System.out.println("Time in sec: " + v2.getDistance() + " | " + (double) (v2.getDistance() / 60) + " min (nur Fahrzeit)");
 
         //find the path by going through the Pi�s - the predecessors
         String path = "the following Path: \n";
         Vertex currentV = v2;
         while (currentV != v1) {
-            path += currentV.getFullName()+ "\n";
+            path += currentV.getFullName() + "\n";
             currentV = currentV.getPi();
         }
         path += currentV.getFullName() + "\n";
         System.out.println(path);
-    }
-
-    /*
-     * Exercise 4 shortest path
-     */
-    public void depthSearch(String rndStart, String rndEnd) {
-
     }
 
     public void printPis() {
@@ -120,7 +148,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
             System.out.println(v.toString() + " " + v.getPi().toString());
         }
     }
-
 
     @Override
     public Edge getEdge(Vertex src, Vertex sink) {

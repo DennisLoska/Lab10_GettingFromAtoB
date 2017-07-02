@@ -5,22 +5,49 @@ _Authors: Dennis Loska, Bernhard Zaborniak, Tony Dorfmeister, 20.06.2017_
 
 ## 1. Design and implement a data type WeightedGraph that uses either an adjacency list or an adjacency matrix. How are you going to store the weights?
 
-Wir sind dem Beispiel von alexander gefolgt, die weights haben wir als parameter der Edges-klasse gespiechert
+Wir sind dem Beispiel von Alexander gefolgt, die Weights haben wir als Parameter der Edges-klasse gespiechert.
 
 ## 2. While one partner is doing this, the other one should write a class that reads a graph from a file. See notes on the file format and the example file below!
 
-Die Syntax  source firstDesinationNode,weightTithis secondDestination,weight  ...und so weiter lasen wir in unserem programm mit dem String Tokenizer in der Mainmethode ein. Um das einlesen hat sich eine seperate Klasse gekümmert- der eingelesene String wird dam dem GraphenKonstruktor als parameter eingegeben. Beim erstellen des graphen wird er basierend auf der textdatei erstellt. Mit dem richtigen Syntax funktionierte dies gut beim Testen
+Die Syntax  source firstDesinationNode,weightTithis secondDestination,weight  ...und so weiter lasen wir in unserem Programm mit dem String Tokenizer in der Mainmethode ein. Um das einlesen hat sich eine seperate Klasse gekümmert- der eingelesene String wird dann dem Graphen-Konstruktor als Parameter übergeben. Beim Erstellen des Graphen wird er basierend auf der Textdatei erstellt. Mit der richtigen Syntax funktionierte dies gut beim Testen.
 
 ## 3. Now write a method that will take a graph and two vertices and find the shortest path between the vertices. Make a method to print out the path in a readable format. What class will these methods belong to?
 
-Der Djkstra alghorythmus ist bei uns eine Methode in der graphenklasse. Dieser besteht aus 2 Teilen. Zuerst markieren wir alle Vertices ausser unseren Anfang als "unvisited" - diers ist ein boolean Parameter in der vertex Klasse und wir geben jedem Vertex ausser unserem Anfang den Distance-Wert unendlich - ebenfalls ein Feld, die unentlichkeit schreiben wir fälschlicherweise mit der Integer.MAX_Value Methode.
+### Depth First Search-Algorithmus
 
-Der zweite Teil ist es den ganzen graphen zu durchgehen und die Distance-Values verkleinern, falls dies möglich ist. Nach diesem Schritt kann man sich ein ZeilVertex aussuchen und der Distance-Wert, den dieser hat ist die kleinste Entfernung zwischen dem start zu diesem vertex.
+Da wir zuerst den Dijkstra-Algorithmus implementiert haben, haben wir uns an diesem orientiert und auf Basis dessen den Depth First Search-Algorithmus in der depthFirstSearch()-Methode erstellt.
 
-Deas ergebnis der ersten Programmierung war es den kürzesten Weg als eine Summe der weights darzustellen, nun fehlte uns nur noch eine Angabe - durch welche Vertices man gehen muss um diesen kurzen Weg zu beschreiten. Dies setzten wir um, indem jeder Vertex ein zusätzliches Vertex-Feld "Pi" besitzt, welches bei der Änderung des Distance Werdes auf den Vorgängervertex gesetzt wird. Dies führt dazu, dass wir am Ende nur noch mit einer Schleife alle Vertices vom Endpunkt mit getPi() zu dem Anfagspunkt durchgehen und uns diese in einen String speichern.
-
-![Unbenannt](C:\Users\Windows 10\Documents\Code\Java\eclipse workspace\Lab10\Lab10_Getting_from_A_to_B\Unbenannt.PNG)
 
 ## 4. Meanwhile, your partner writes a method that takes a graph, picks two vertices at random, and finds the cheapest path between the two.
 
+### Dijkstra-algorithmus
+
+Der Djkstra Algorithmus ist bei uns eine Methode in der Graphen-Klasse. Dieser besteht aus 2 Teilen. Zuerst markieren wir alle Vertices außer unseren Anfang als "unvisited" - dies ist ein boolean Parameter in der Vertex-Klasse und wir geben jedem Vertex außer unserem Anfang den Distance-Wert unendlich - ebenfalls ein Feld, die Unendlichkeit schreiben wir fälschlicherweise mit der Integer.MAX_Value Methode.
+
+Der zweite Teil ist es den ganzen Graphen durchzugehen und die Distance-Values zu verkleinern, falls dies möglich ist. Nach diesem Schritt kann man sich ein Ziel-Vertex aussuchen und der Distance-Wert, den dieser hat ist die kleinste Entfernung zwischen dem Start zu diesem vertex.
+
+Das Ergebnis der ersten Programmierung war es den kürzesten Weg als eine Summe der Weights darzustellen, nun fehlte uns nur noch eine Angabe - durch welche Vertices man gehen muss um diesen kurzen Weg zu beschreiten. Dies setzten wir um, indem jeder Vertex ein zusätzliches Vertex-Feld "Pi" besitzt, welches bei der Änderung des Distance Werdes auf den Vorgängervertex gesetzt wird. Dies führt dazu, dass wir am Ende nur noch mit einer Schleife alle Vertices vom Endpunkt mit getPi() zu dem Anfagspunkt durchgehen und uns diese in einen String speichern.
+
+![Unbenannt](Unbenannt.PNG)
+
 ## 5. Starting from S Schöneweide Bhf (Berlin) compute the shortest travel times to the 4 Stations below.
+
+Hierfür wurde in der Vertex-Klasse eine Methode erstellt, um die Namen aus der Textdatei mit den Stationsnamen herauszulesen und anschließend zu returnen. Hierbei wird eine ähnliche Logik wie in der GraphFileReader-Klasse angewendet.
+
+```Java
+     String getFullName(){
+        String currentLine;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("stationNames.txt"));
+            while((currentLine=br.readLine())!=null){
+                if (currentLine.contains(this.name))
+                    letterName=currentLine;
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("sth went wrong");
+        }
+        return letterName;
+    }
+```
