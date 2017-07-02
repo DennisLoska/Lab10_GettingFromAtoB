@@ -101,15 +101,15 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         String path = "the following Path: \n";
         Vertex currentV = v2;
         while (currentV != v1) {
-            path += currentV.toString() + "\n";
+            path += currentV.getFullName()+ "\n";
             currentV = currentV.getPi();
         }
-        path += currentV.toString() + "\n";
+        path += currentV.getFullName() + "\n";
         System.out.println(path);
     }
 
     /*
-     * Exercise 4 cheapest path
+     * Exercise 4 shortest path
      */
     public void depthSearch(String rndStart, String rndEnd) {
 

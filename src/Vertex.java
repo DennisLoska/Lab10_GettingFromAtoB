@@ -1,12 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class Vertex {
 
-    // for dijkstra
-    private int distance;
+    private int distance;     // for dijkstra
     private Vertex pi;
-
     private String name;
-    boolean visited = false;
-
+    private String letterName;
+    //boolean visited = false;
     Vertex(String name) {
         this.name = name;
         distance = 0;
@@ -20,6 +21,22 @@ public class Vertex {
 
     String getName() {
         return name;
+    }
+
+    String getFullName(){
+        String currentLine;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("stationNames.txt"));
+            while((currentLine=br.readLine())!=null){
+                if (currentLine.contains(this.name))
+                    letterName=currentLine + "\n";
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("sth went wrong");
+        }
+        return letterName;
     }
 
     int getDistance() {
@@ -41,12 +58,12 @@ public class Vertex {
         this.pi = pi;
     }
 
-    public void setVisited() {
-        visited = true;
-    }
+	/*public void setVisited(){
+		visited = true;
+	}
 
-    public void setUnVisited() {
-        visited = false;
-    }
+	public void setUnVisited(){
+		visited = false;
+	}*/
 
 }
