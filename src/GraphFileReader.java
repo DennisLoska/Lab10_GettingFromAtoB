@@ -11,13 +11,13 @@ public class GraphFileReader {
 		
 	}
 	/*
-	 * liest eine TExtFile des Graphen im folgendem Format:   
+	 * liest eine TextFile des Graphen im folgendem Format:
 	 * SourceVertexName SinkVertex1,1Weight SinkVertex2,2Weight...SinkVertexN,NWeight
 	 */
 	
 	public String readFile(String filename){
 		String result="";
-		String currentLine="";
+		String currentLine;
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -27,7 +27,7 @@ public class GraphFileReader {
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("smth went wrong");
+			System.out.println("sth went wrong");
 		}
 		
 		return result;

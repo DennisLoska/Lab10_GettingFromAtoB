@@ -1,53 +1,52 @@
-
 public class Vertex {
-	
-	
-	
-	private int distance;	 // for dijkstra
-	private Vertex pi;       //for djkstra
-	private String name;
-	//boolean visited = false;  // for djkstra
 
-	public Vertex(String name) {
-		this.name = name;
-		distance= 0;
-		setPi(null);
-	}
-	
-	public String toString(){
-		return "name[" + name + "]";
-		
-	}
+    // for dijkstra
+    private int distance;
+    private Vertex pi;
 
-	public String getName() {
-		return name;
-	}
+    private String name;
+    boolean visited = false;
 
-	public int getDistance() {
-		return distance;
-	}
+    Vertex(String name) {
+        this.name = name;
+        distance = 0;
+        setPi(null);
+    }
 
-	public void setDistance(int distance) {
-		this.distance = distance;
-	}
+    public String toString() {
+        return "name[" + name + "]";
 
-	public Vertex getPi() {
-		if(pi!=null){
-		return pi;
-		}
-		return new Vertex("kein");
-	}
+    }
 
-	public void setPi(Vertex pi) {
-		this.pi = pi;
-	}
-	
-	/*public void setVisited(){
-		visited = true;
-	}
-	
-	public void setUnVisited(){
-		visited = false;
-	}*/
+    String getName() {
+        return name;
+    }
+
+    int getDistance() {
+        return distance;
+    }
+
+    void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    Vertex getPi() {
+        if (pi != null) {
+            return pi;
+        }
+        return new Vertex("kein");
+    }
+
+    void setPi(Vertex pi) {
+        this.pi = pi;
+    }
+
+    public void setVisited() {
+        visited = true;
+    }
+
+    public void setUnVisited() {
+        visited = false;
+    }
 
 }
