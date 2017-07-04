@@ -9,6 +9,8 @@ public class GraphFileReader {
     /*
 	 * liest eine TextFile des Graphen im folgendem Format:
 	 * SourceVertexName SinkVertex1,1Weight SinkVertex2,2Weight...SinkVertexN,NWeight
+	 * 
+	 * gibt den kompletten String der Textdatei zurück
 	 */
     public String readFile(String filename) {
         String result = "";

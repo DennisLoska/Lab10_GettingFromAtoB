@@ -26,9 +26,9 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         ArrayList<String> edgesToCreate = new ArrayList<String>();
         StringTokenizer st = new StringTokenizer(fileGraph, "\n");
 
+        //teilt den Kompletten String in Zeilen und dann nach den Leerzeichen mithilfe des String Tokenizers
         while (st.hasMoreTokens()) {
             String currentLine = st.nextToken();
-            //System.out.println(currentLine);
             StringTokenizer st2 = new StringTokenizer(currentLine);
             //src
             String src = st2.nextToken(" ");
@@ -89,24 +89,27 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
      * Exercise 4 cheapest path
      */
     public void dijkstra(String start, String end) {
+    	//vorbereitung, erstelle eine Collection von unvisitedNodes, welche wir leeren wollen
         Vertex v1 = getVertex(start);
         Vertex v2 = getVertex(end);
         Vertex currentNode;
         ArrayList<Vertex> unvisitedNodes = new ArrayList<Vertex>();
 
-       /* 1. assign to every node except the starting node the distance value of infinity
+       //PART 1 - calculate the distances, set the pi´s
+        
+        /* 1. assign to every node except the starting node the distance value of infinity
         2. set initial Node as current, mark all others as unvisited, create a set of all unvisited Nodes
-        ?really necessary?*/
+       */
         for (Vertex v : vertices) {
             if (v != v1) v.setDistance(Integer.MAX_VALUE);
             unvisitedNodes.add(v);
         }
 
-        //3. calculate Distance to the first neghbours of the startingNode
+        /*3. calculate Distance to the first neghbours of the startingNode, 
+        remove them from the unvisited Set, when the distance has been calculated*/
+        
         currentNode = v1;
         while (!unvisitedNodes.isEmpty()) {
-            //System.out.println("currentNode: "+currentNode.toString());
-            //System.out.println("unvisitedNodes: "+unvisitedNodes.toString());
             unvisitedNodes.remove(currentNode);
             for (Vertex v : getNeighbors(currentNode)) {
                 int currentWeight = getEdge(currentNode, v).getWeight();
@@ -128,11 +131,17 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
 
             currentNode = smallestDisVertex;
         }
+        /*do this again until the unvisited set isnt empty, if the new calculated distance 
+        on a node is higher than the one before ignore it, else change the distance parameter 
+        of the vertex and set the predecessor(pi) to the current node*/
 
+        
+        //PART 2
+        
         //now everything form the starting point is set & calculated, now we can calculate our fastest ways
         System.out.println("Time in sec: " + v2.getDistance() + " | " + (double) (v2.getDistance() / 60) + " min (nur Fahrzeit)");
 
-        //find the path by going through the Piï¿½s - the predecessors
+        //find the path by going through the Pi´s - the predecessors
         String path = "the following Path: \n";
         Vertex currentV = v2;
         while (currentV != v1) {
@@ -141,12 +150,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
         }
         path += currentV.getFullName() + "\n";
         System.out.println(path);
-    }
-
-    public void printPis() {
-        for (Vertex v : vertices) {
-            System.out.println(v.toString() + " " + v.getPi().toString());
-        }
     }
 
     @Override
@@ -179,18 +182,6 @@ public class DirectedWeightedGraph implements DirectedWeightedGraphInterface {
      */
     public String toString() {
         return fileGraph;
-    }
-
-    public String toStringOld() {
-        String result = "";
-        for (Vertex v1 : vertices) {
-            result += v1.toString() + " ";
-            for (Vertex v2 : getNeighbors(v1)) {
-                result += v2.toString() + "," + getEdge(v1, v2).getWeight() + " ";
-            }
-            result += "\n";
-        }
-        return result;
     }
 
 }
